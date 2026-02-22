@@ -6,28 +6,33 @@ export const revalidate = 0;
 export default async function Home() {
   const storyblokApi = getStoryblokApi();
   
-  let story;
   try {
-    // Attempt 1: Fetch the 'home' slug
-    const res = await storyblokApi.get(`cdn/stories/home`, { 
+    // We try to fetch 'home' directly first since your slug exists
+    const { data } = await storyblokApi.get(`cdn/stories/home`, { 
       version: "draft",
       cv: Date.now() 
     });
-    story = res.data.story;
-  } catch (e) {
-    // Attempt 2: Fallback to the root folder if 'home' isn't found
-    const res = await storyblokApi.get(`cdn/stories`, { 
-      version: "draft",
-      is_startpage: 1 
-    });
-    story = res.data.stories[0];
+
+    if (!data?.story) {
+       return (
+         <div className="p-20 font-mono text-[10px] uppercase bg-white text-black min-h-screen">
+           Status // Story_Data_Undefined <br/>
+           Action // Ensure 'home' slug is published in Storyblok
+         </div>
+       );
+    }
+
+    return (
+      <main className="min-h-screen bg-white">
+        <StoryblokServerComponent story={data.story} />
+      </main>
+    );
+  } catch (error) {
+    return (
+      <div className="p-20 font-mono text-[10px] uppercase text-red-500 bg-white min-h-screen">
+        Error // {error.message} <br/>
+        Tip // Check if NEXT_PUBLIC_STORYBLOK_TOKEN is correct in Netlify
+      </div>
+    );
   }
-
-  if (!story) return <div className="p-20 font-mono text-xs uppercase">Error // Story_Not_Found</div>;
-
-  return (
-    <div className="min-h-screen bg-white">
-      <StoryblokServerComponent story={story} />
-    </div>
-  );
 }
