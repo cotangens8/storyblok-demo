@@ -1,11 +1,11 @@
-import { getStoryblokApi } from "@/app/lib/storyblok";
+import { getStoryblokApi } from "@/lib/storyblok";
 import StoryblokStory from "@storyblok/react/story";
 
 export default async function Home() {
   const { data } = await fetchData();
 
   return (
-    <div>
+    <div className="min-h-screen bg-white">
       <StoryblokStory story={data.story} />
     </div>
   );
@@ -13,9 +13,8 @@ export default async function Home() {
 
 async function fetchData() {
   const storyblokApi = getStoryblokApi();
-  // We add 'cv' to break the cache so you see updates instantly
   return storyblokApi.get(`cdn/stories/home`, { 
     version: "draft",
-    cv: Date.now() 
+    cv: Date.now() // Forces a fresh fetch so you see changes instantly
   });
 }
