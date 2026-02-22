@@ -1,22 +1,20 @@
 import { storyblokEditable } from "@storyblok/react/rsc";
 
 const Hero = ({ blok }) => (
-  <section 
-    {...storyblokEditable(blok)} 
-    className="pt-32 pb-20 px-6 md:px-12 border-b border-groth-black bg-groth-white"
+  <section
+    {...storyblokEditable(blok)}
+    className="pt-40 pb-20 px-10 border-b border-black bg-white"
   >
-    <div className="flex flex-col gap-8">
-      <h1 className="text-[12vw] font-medium tracking-tightest leading-[0.85] uppercase break-words">
-        {blok.headline}
-      </h1>
-      <div className="flex flex-col md:flex-row justify-between items-start gap-6 border-t border-groth-black pt-8">
-        <p className="max-w-xl text-xl md:text-2xl font-light leading-snug">
-          {blok.subheadline}
-        </p>
-        <span className="font-mono text-sm uppercase tracking-tighter opacity-50">
-          Index // Case_Studies
-        </span>
-      </div>
+    <h1 className="text-[10vw] font-medium tracking-tight leading-[0.85] uppercase italic">
+      {blok.headline}
+    </h1>
+    <div className="mt-12 flex justify-between items-end border-t border-black pt-8">
+      <p className="max-w-xl text-2xl font-light leading-snug">
+        {blok.subheadline}
+      </p>
+      <span className="font-mono text-xs uppercase tracking-widest opacity-40">
+        Case_Ref // 01
+      </span>
     </div>
   </section>
 );
