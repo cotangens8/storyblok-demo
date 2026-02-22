@@ -1,13 +1,13 @@
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
-import page from "../components/page"; // Matches lowercase file
-import Hero from "../components/Hero";
-import StatBar from "../components/StatBar";
+import page from "../../components/page"; 
+import Hero from "../../components/Hero";
+import StatBar from "../../components/StatBar";
 
 export const getStoryblokApi = storyblokInit({
-  accessToken: "WjQ4FrPTpNcVxJo4iM7rUgtt",
+  accessToken: process.env.NEXT_PUBLIC_STORYBLOK_TOKEN,
   use: [apiPlugin],
   components: {
-    page: page, // This maps the Storyblok slug "page" to our component
+    page: page,
     hero: Hero,
     stat_bar: StatBar,
   },
