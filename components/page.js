@@ -1,3 +1,4 @@
+// components/page.js
 import { storyblokEditable, StoryblokServerComponent } from "@storyblok/react/rsc";
 
 const Page = ({ blok }) => (

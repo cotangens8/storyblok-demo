@@ -1,3 +1,4 @@
+// app/lib/storyblok.js
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
 import Page from "../../components/page";
 import Hero from "../../components/Hero";
@@ -9,6 +10,11 @@ export const getStoryblokApi = storyblokInit({
   components: {
     page: Page,
     hero: Hero,
+
+    // Add this (matches Storyblok "Data Strip" technical name)
+    data_strip: StatBar,
+
+    // Keep this for backward compatibility
     stat_bar: StatBar,
   },
 });
