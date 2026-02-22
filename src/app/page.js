@@ -1,5 +1,5 @@
 import { getStoryblokApi } from "./lib/storyblok";
-import StoryblokStory from "@storyblok/react/story";
+import { StoryblokServerComponent } from "@storyblok/react/rsc";
 
 export const revalidate = 0;
 
@@ -13,7 +13,8 @@ export default async function Home() {
 
     return (
       <main className="min-h-screen bg-white">
-        <StoryblokStory story={data.story} />
+        {/* We use the Server Component version for the App Router */}
+        <StoryblokServerComponent story={data.story} />
       </main>
     );
   } catch (error) {
