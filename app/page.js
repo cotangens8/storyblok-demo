@@ -10,9 +10,15 @@ export default async function Home() {
     cv: Date.now(),
   });
 
+  console.log("STORY CONTENT:", JSON.stringify(data.story.content, null, 2));
+
+  if (!data?.story?.content) {
+    return <div style={{padding: 40, fontFamily: 'monospace'}}>No content found in Storyblok story</div>;
+  }
+
   return (
     <main className="min-h-screen bg-white">
-      <StoryblokServerComponent story={data.story} />
+      <StoryblokServerComponent blok={data.story.content} />
     </main>
   );
 }
