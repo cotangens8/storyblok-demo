@@ -1,35 +1,42 @@
 import { getStoryblokApi } from "./lib/storyblok";
 import StoryblokStory from "@storyblok/react/story";
 
-// This ensures the page is always fresh and doesn't show old cached data
-export const revalidate = 0;
+export const revalidate = 0; // Disable caching for the demo
 
 export default async function Home() {
-  const { data } = await fetchData();
+  try {
+    const { data } = await fetchData();
 
-  // Safety check: if Storyblok is down or the slug is wrong, this prevents a crash
-  if (!data || !data.story) {
+    if (!data?.story) {
+      return (
+        <div className="flex min-h-screen flex-col items-center justify-center font-mono text-[10px] uppercase tracking-widest p-20 text-center">
+          <p className="text-red-500 mb-4 font-bold">Error: Story Not Found</p>
+          <p>Ensure your Storyblok slug is exactly "home"</p>
+          <p className="mt-2 opacity-50">Current Path: /</p>
+        </div>
+      );
+    }
+
     return (
-      <div className="flex min-h-screen items-center justify-center font-mono text-xs uppercase tracking-widest">
-        Connection_Error // Check_Storyblok_Slug
+      <main className="min-h-screen bg-white">
+        <StoryblokStory story={data.story} />
+      </main>
+    );
+  } catch (error) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center font-mono text-[10px] uppercase tracking-widest p-20">
+        <p className="text-red-500 mb-4 font-bold">Critical Connection Error</p>
+        <pre className="bg-gray-100 p-4 lowercase">{error.message}</pre>
+        <p className="mt-4 opacity-50 text-center">Check if your Access Token is valid in src/app/lib/storyblok.js</p>
       </div>
     );
   }
-
-  return (
-    <div className="min-h-screen bg-white selection:bg-black selection:text-white">
-      {/* The StoryblokStory component handles the live visual editing */}
-      <StoryblokStory story={data.story} />
-    </div>
-  );
 }
 
 async function fetchData() {
   const storyblokApi = getStoryblokApi();
-
-  // We fetch 'home' because that is the slug in your Storyblok space
   return storyblokApi.get(`cdn/stories/home`, { 
     version: "draft",
-    cv: Date.now() // Cache-breaker to see updates instantly after pushing "Save"
+    cv: Date.now() 
   });
 }
