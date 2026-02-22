@@ -1,11 +1,18 @@
-import { storyblokEditable, StoryblokServerComponent } from "@storyblok/react/rsc";
+import { getStoryblokApi } from "./lib/storyblok";
+import { StoryblokServerComponent } from "@storyblok/react/rsc";
 
-const Page = ({ blok }) => (
-  <main {...storyblokEditable(blok)}>
-    {(blok.body || []).map((nestedBlok) => (
-      <StoryblokServerComponent blok={nestedBlok} key={nestedBlok._uid} />
-    ))}
-  </main>
-);
+export const revalidate = 0;
 
-export default Page;
+export default async function Home() {
+  const storyblokApi = getStoryblokApi();
+  const { data } = await storyblokApi.get("cdn/stories/home", {
+    version: "draft",
+    cv: Date.now(),
+  });
+
+  return (
+    <main className="min-h-screen bg-white">
+      <StoryblokServerComponent blok={data.story.content} />
+    </main>
+  );
+}
