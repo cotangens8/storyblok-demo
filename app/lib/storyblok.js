@@ -11,10 +11,8 @@ export const getStoryblokApi = storyblokInit({
     page: Page,
     hero: Hero,
 
-    // Add this (matches Storyblok "Data Strip" technical name)
-    data_strip: StatBar,
-
-    // Keep this for backward compatibility
+    // keep both so either technical name works
     stat_bar: StatBar,
+    data_strip: StatBar,
   },
 });

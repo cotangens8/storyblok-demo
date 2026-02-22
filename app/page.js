@@ -1,4 +1,3 @@
-// app/page.js
 import { getStoryblokApi } from "./lib/storyblok";
 import { StoryblokServerComponent } from "@storyblok/react/rsc";
 
@@ -12,10 +11,7 @@ export default async function Home() {
     cv: Date.now(),
   });
 
-  if (!data?.story?.content) {
-    return <div>No content found in Storyblok story</div>;
-  }
+  if (!data?.story?.content) return <div>No content found in Storyblok story</div>;
 
-  // THIS is what was missing:
   return <StoryblokServerComponent blok={data.story.content} />;
 }
