@@ -1,4 +1,4 @@
-import { getStoryblokApi } from "./lib/storyblok"; // Look at the dot-slash
+import { getStoryblokApi } from "./lib/storyblok";
 import StoryblokStory from "@storyblok/react/story";
 
 export const revalidate = 0;
@@ -11,11 +11,15 @@ export default async function Home() {
       cv: Date.now() 
     });
 
-    return <StoryblokStory story={data.story} />;
+    return (
+      <main className="min-h-screen bg-white">
+        <StoryblokStory story={data.story} />
+      </main>
+    );
   } catch (error) {
     console.error(error);
     return (
-      <div className="p-20 font-mono text-[10px] uppercase">
+      <div className="flex min-h-screen items-center justify-center font-mono text-[10px] uppercase tracking-widest">
         Connection_Error // {error.message}
       </div>
     );

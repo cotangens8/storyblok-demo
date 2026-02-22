@@ -1,6 +1,7 @@
 import { storyblokInit, apiPlugin } from "@storyblok/react/rsc";
-import Page from "@/components/Page";
-import Hero from "@/components/Hero";
+import Page from "../components/Page";
+import Hero from "../components/Hero";
+import StatBar from "../components/StatBar";
 
 export const getStoryblokApi = storyblokInit({
   accessToken: "WjQ4FrPTpNcVxJo4iM7rUgtt",
@@ -8,6 +9,6 @@ export const getStoryblokApi = storyblokInit({
   components: {
     page: Page,
     hero: Hero,
-    // Add other blocks here
+    stat_bar: StatBar,
   },
 });
